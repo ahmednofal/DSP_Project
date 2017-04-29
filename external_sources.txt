@@ -1,0 +1,7 @@
+This file contains all external sources that has been used in the implementation of the project
+and any libraries and dependancies we may have used
+
+For the audio steganography techniques refer to : https://pdfs.semanticscholar.org/28fe/8e2480bc957c4aa8172214d466ba9613e8a9.pdf
+bit manipulation in python:
+							http://stackoverflow.com/questions/13081090/convert-binary-to-list-of-digits-python
+							
