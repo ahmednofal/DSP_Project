@@ -85,21 +85,25 @@ def mask_bit(idx, message):
     return masker
 
 
-def recover(cover_audio_file):
+def recover(cover_audio_file, emb_msg_len, lsb_level):
     # Take the cover audio file and reverse the hiding process by taking the lsb bit and adding it to an array of bits
     # One challenge is due to our algorithm of hiding the lsb, because we do not know how many bits (in the amp values
     # of the original cover message was used to hide the emb message binary code
+
     length = len(cover_audio_file)
+
+    """What is the length of the embedded message"""
+    """does it tell you the number of bits in the entire message
+    or does it tell you the number of words"""
+
     lsb_level = emb_msg_len // length
     bit_mask = [2 ** x for x in range(lsb_level)]
     msg = 0;
     rest = emb_msg_len;
     for i in bit_mask:
-        if (rest < length):
+        if rest < length:
             length = rest;
         for j in range(length):
             msg = (msg << 1) | ((cover_audio_file[length]) & bit_mask[i])
         rest = rest - length;
     return msg;
-
-    pass
