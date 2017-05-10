@@ -6,7 +6,8 @@ freq, wave = util.load_wav_file("karim3.wav")
 
 print(freq)
 print(wave.shape)
+print(type(wave))
+print(wave)
+wave_bin = util.to_binary(wave, 32)
 
-wave_bin = util.array_to_binary(wave)
-
-print(wave_bin.shape)
+#print(wave_bin.shape)

@@ -61,17 +61,20 @@ def array_to_binary(array_name):
 
 
 def to_binary(decimal_array, quantization_bit_value):
+
+    decimal_array = [bin(d)[2:] for d in decimal_array]
+    print(decimal_array)
     for i in range(len(decimal_array)):
-        one_binary_word = (bin(decimal_array[i]) << quantization_bit_value) + bin(decimal_array[i+1])
+        one_binary_word = str(int(bin(decimal_array[i])) << quantization_bit_value) + bin(decimal_array[i+1])
     one_binary_word = [int(d) for d in str(one_binary_word)[2:]]
     return one_binary_word
+
 
 def to_binary3(decimal_array):
     one_bit_array = bitarray(bin(decimal_array))
 
 
 def load_wav_file_in_binary(file_name):
-
     rate, data = load_wav_file(file_name)
     binary_data = np.array(data)
     # Converting to the binary format of the data
