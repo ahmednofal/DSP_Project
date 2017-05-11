@@ -90,3 +90,15 @@ def load_wav_file_in_binary(file_name):
     # for i in range(data.shape[0]):
     #     binary_data[i] = bin(int(data[i]))[2:].zfill(8)
     return rate, binary_data
+
+def hide_bit(target, bit, level): #hides <bit> in target number in bit number <level>
+    if (int(bit) == 1):
+        target = target | (bit << level)
+    else:
+        target = target & (~(1 << level))
+    return target
+
+def get_hidden_bit(source, level): #recovers a hidden bit in source number in bit number <level>
+    return  (source >> level) & 1 
+
+
