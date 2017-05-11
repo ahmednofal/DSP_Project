@@ -60,14 +60,22 @@ def array_to_binary(array_name):
     return array_name
 
 
-def to_binary(decimal_array, quantization_bit_value):
+def to_binary(decimal_array):
 
-    decimal_array = [bin(d)[2:] for d in decimal_array]
-    print(decimal_array)
-    for i in range(len(decimal_array)):
-        one_binary_word = str(int(bin(decimal_array[i])) << quantization_bit_value) + bin(decimal_array[i+1])
-    one_binary_word = [int(d) for d in str(one_binary_word)[2:]]
+    #decimal_array = [bin(((1 << d) - 1) & -5)[2:] for d in decimal_array]
+    #print(decimal_array)
+    one_binary_word = ''
+    for i in range(len(decimal_array)-1):
+        shifted = decimal_array[i]
+        one_binary_word += bin(((1 << shifted) - 1) & -5)[2:]
+    print(len(one_binary_word))
     return one_binary_word
+
+
+        #bin(((1 << shifted) - 1) & -5)[2:0] bin(((1 << decimal_array[i+1]) - 1) & -5))[2:]
+    #one_binary_word = [int(d) for d in str(one_binary_word)[2:]]
+    #print(one_binary_word)
+
 
 
 def to_binary3(decimal_array):
