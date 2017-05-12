@@ -17,6 +17,18 @@ stego_file_decimal_path = local_path + "stego_file_decimal.txt"
 stego_file_binary_path = local_path + "stego_file_binary.txt"
 recovered_emb_file_binary_path = local_path + "recovered_emb_file_binary.txt"
 recovered_emb_file_decimal_path = local_path + "recovered_emb_file_decimal.txt"
+if not os.path.exists(emb_file_decimal_path):
+    os.makedirs(emb_file_decimal_path)
+if not os.path.exists(emb_file_binary_path):
+    os.makedirs(emb_file_binary_path)
+if not os.path.exists(stego_file_decimal_path):
+    os.makedirs(stego_file_decimal_path)
+if not os.path.exists(stego_file_binary_path):
+    os.makedirs(stego_file_binary_path)
+if not os.path.exists(recovered_emb_file_binary_path):
+    os.makedirs(recovered_emb_file_binary_path)
+if not os.path.exists(emb_file_decimal_path):
+    os.makedirs(recovered_emb_file_decimal_path)
 
 convert_emb_to_binary = int_to_bin_out_exe + ' ' + emb_file_decimal_path \
                         + ' ' + emb_file_binary_path
@@ -53,11 +65,12 @@ print("hi from test")
 
 stego = steg.hide(cover, emb)
 
+print(stego)
 stego_file_decimal = open(stego_file_decimal_path, "w")
-for decimal in emb[0:len(emb)-1]:
-    stego_file_decimal.write(str(stego)+'\n')
+for value in stego:
+    stego_file_decimal.write(str(value)+'\n')
 
-stego_file_decimal.write(str(stego))
+#stego_file_decimal.write(str(stego))
 stego_file_decimal.close()
 
 os.system(convert_stego_to_binary)

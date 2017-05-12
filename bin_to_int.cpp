@@ -30,13 +30,13 @@ int main(int argc, char* argv[])
     recovered_wav_file_decimal.open(RECOVERED_DECIMAL_FILE_NAME);
     if (recovered_wav_file_decimal.fail())
     {
-        cerr << " Error opening file....." << RECOVERED_DECIMAL_FILE_NAME << " exiting !!" << endl;
+        cerr << " Error opening file....." << RECOVERED_DECIMAL_FILE_NAME << " exiting !!\n" << endl;
         return(-1);
     }
     recovered_wav_file_binary.open(RECOVERED_BINARY_FILE_NAME);
     if (recovered_wav_file_binary.fail())
     {
-        cerr << " Error opening file " << RECOVERED_BINARY_FILE_NAME << "..... exiting !!" << endl;
+        cerr << " Error opening file " << RECOVERED_BINARY_FILE_NAME << "..... exiting !!\n" << endl;
         return(-1);
     }
 
