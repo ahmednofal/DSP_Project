@@ -85,25 +85,22 @@ def mask_bit(idx, message):
     return masker
 
 
-def recover(cover_audio_file, emb_msg_len, lsb_level):
-    # Take the cover audio file and reverse the hiding process by taking the lsb bit and adding it to an array of bits
-    # One challenge is due to our algorithm of hiding the lsb, because we do not know how many bits (in the amp values
-    # of the original cover message was used to hide the emb message binary code
+def recover(cover_data, emb_msg_len): # cover_data is a string list of binary numbers
+    msg = ''
+    cover_len = len(cover_data)
+    lsb_lvl = emb_msg_len // cover_len
+    data = np.array([list(x) for x in cover_data])
 
-    length = len(cover_audio_file)
+    for i in range(lsb_lvl):
+        msg = msg + ''.join(data[:,31 - i])
 
-    """What is the length of the embedded message"""
-    """does it tell you the number of bits in the entire message
-    or does it tell you the number of words"""
+    rem = emb_msg_len % (cover_len)
+    msg = msg + ''.join(data[:rem ,31 - lsb_lvl])
 
-    lsb_level = emb_msg_len // length
-    bit_mask = [2 ** x for x in range(lsb_level)]
-    msg = 0;
-    rest = emb_msg_len;
-    for i in bit_mask:
-        if rest < length:
-            length = rest;
-        for j in range(length):
-            msg = (msg << 1) | ((cover_audio_file[length]) & bit_mask[i])
-        rest = rest - length;
-    return msg;
+    chunk = 32
+    msg_split = [msg[i : i + chunk] for i in range(0, len(msg), chunk)]
+    f = open("emb_msg_rec.txt", 'w')
+    for i in msg_split:
+        f.write(i + '\n')
+    return msg_split
+
