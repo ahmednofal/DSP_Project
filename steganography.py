@@ -56,18 +56,26 @@ def lsb_code(binary_emb_message, cover_message):
     emb_message_bits_length = len(binary_emb_message)
 
     lsb_idx = 0
-    print(cover_message)
     # Loop over all the bits in the binary_emb_message
+    # print(len(binary_emb_message))
+    # print(0%cover_message.shape[0])
+    current_shape = cover_message.shape[0]
     for k in range(emb_message_bits_length):
-        if (float(k) / float(cover_message.shape[0])) > 1:
+        if (float(k) / float(current_shape)) > 1:
             lsb_idx += 1
-        cover_message[k] = hide_bit(binary_emb_message[k],
-                                           cover_message[k % cover_message.shape[0]],
+            current_shape = 2 * k
+
+        idx = k % cover_message.shape[0]
+        #print(idx)
+        #print(cover_message[idx])
+        cover_message[idx] = hide_bit(binary_emb_message[k],
+                                           cover_message[idx],
                                            lsb_idx)
     return cover_message
 
 
 def hide_bit(bit, word, bit_to_be_replaced_idx):
+    #print(bit_to_be_replaced_idx, word)
     bit_to_be_replaced_value = mask_bit(bit_to_be_replaced_idx, word)
     if bit:
         if not bit_to_be_replaced_value:  # The bit to be replaced is zero and the bit to be hidden is one so we add the
@@ -97,7 +105,7 @@ def recover(stego_data, emb_msg_len): # cover_data is a string list of binary nu
     rem = emb_msg_len % (stego_len)
     msg = msg + ''.join(data[:rem ,31 - lsb_lvl])
 
-    chunk = 32
+    chunk = 16
     msg_split = [msg[i : i + chunk] for i in range(0, len(msg), chunk)]
     f = open("emb_msg_rec.txt", 'w')
     for i in msg_split:

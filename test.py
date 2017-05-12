@@ -41,7 +41,6 @@ for decimal in emb[0:len(emb) - 1]:
 
 emb_file_decimal.write(str(decimal))
 emb_file_decimal.close()
-
 # To convert it to binary and store it for us as binary
 os.system(convert_emb_to_binary)
 emb = ''
@@ -49,11 +48,13 @@ with open(emb_file_binary_path, 'r') as emb_binary_file:
     for line in emb_binary_file:
         emb += line[:len(line)-1]
 #print(emb)
-print(cover)
+#print(cover)
+print("hi from test")
+
 stego = steg.hide(cover, emb)
 
 stego_file_decimal = open(stego_file_decimal_path, "w")
-for decimal in emb[0:len(emb) -1]:
+for decimal in emb[0:len(emb)-1]:
     stego_file_decimal.write(str(stego)+'\n')
 
 stego_file_decimal.write(str(stego))
