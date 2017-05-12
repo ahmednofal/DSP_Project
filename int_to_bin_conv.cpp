@@ -3,47 +3,50 @@
 #include <fstream>
 #include <string>
 
-#define DECIMAL_FILE_NAME "wav_file_decimal.txt"
-#define BINARY_FILE_NAME "wav_file_binary.txt"
+#define EMB_DECIMAL_FILE_NAME "emb_wav_file_decimal.txt"
+#define EMB_BINARY_FILE_NAME  "emb_wav_file_binary.txt"
 
 using namespace std;
 
 int main()
 {
     // Read from file
-    ifstream wav_file_decimal;
-    ofstream wav_file_binary;
+    ifstream emb_wav_file_decimal;
+    ofstream emb_wav_file_binary;
 
     string number;
     int conv_int;
     string binary;
 
-//    string file = DECIMAL_FILE_NAME;
-    wav_file_decimal.open(DECIMAL_FILE_NAME);
-    if (wav_file_decimal.fail())
+//    string file = EMB_DECIMAL_FILE_NAME;
+    emb_wav_file_decimal.open(EMB_DECIMAL_FILE_NAME);
+    if (emb_wav_file_decimal.fail())
     {
-        cerr << " Error opening file....." << DECIMAL_FILE_NAME << " exiting !!" << endl;
+        cerr << " Error opening file....." << EMB_DECIMAL_FILE_NAME << " exiting !!" << endl;
         return(-1);
     }
-    wav_file_binary.open(BINARY_FILE_NAME);
-    if (wav_file_binary.fail())
+    emb_wav_file_binary.open(EMB_BINARY_FILE_NAME );
+    if (emb_wav_file_binary.fail())
     {
-        cerr << " Error opening file " << BINARY_FILE_NAME << "..... exiting !!" << endl;
+        cerr << " Error opening file " << EMB_BINARY_FILE_NAME  << "..... exiting !!" << endl;
         return(-1);
     }
 
     do
     {
-        getline(wav_file_decimal, number);
+        getline(emb_wav_file_decimal, number);
 
         conv_int = stoi(number);
         binary = bitset<32>(conv_int).to_string(); //to binary
-        wav_file_binary << binary << endl;
+        emb_wav_file_binary << binary << endl;
 
-    } while(!wav_file_decimal.eof());
-    wav_file_decimal.close();
-    wav_file_binary.close();
+    } while(!emb_wav_file_decimal.eof());
+    emb_wav_file_decimal.close();
+    emb_wav_file_binary.close();
 
+//    string mybit = "11111111111111111111111111111110";
+//    bitset<32> number(mybit);
+//    cout << int(number.to_ulong()) << endl;
     return 0;
 
 }
