@@ -32,7 +32,7 @@ if not os.path.exists(save_figures_path):
 if not os.path.exists(WAV_Files_folder):
     os.makedirs(WAV_Files_folder)
 if not os.path.exists(reconstructed_wav_folder):
-    os.makedirs(reconstructed_wav_folder)
+    os.makedirs(reconstructedf_wav_folder)
 
 
 # number of samples for the signal
@@ -40,6 +40,12 @@ samplesNum = 256
 # DftPointsNum = 256
 samplingRate = 2
 
+def load_wav_file_as_bin(filename):
+    sampleFrequency, inputSequence = read(filename)
+    inputSequence = np.array(inputSequence)
+    target = open('input_seq.txt', 'w')
+    for i in inputSequence:
+        target.write(str(i))
 
 def load_wav_file(filename):
 
@@ -67,7 +73,7 @@ def to_binary(decimal_array):
     one_binary_word = ''
     for i in range(len(decimal_array)-1):
         shifted = decimal_array[i]
-        one_binary_word += bin(((1 << shifted) - 1) & -5)[2:]
+        one_binary_word += format(bin(decimal_array[i])[2:],32)
     print(len(one_binary_word))
     return one_binary_word
 
