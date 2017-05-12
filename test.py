@@ -27,8 +27,11 @@ convert_recovered_emb_to_decimal = bin_to_int_out_exe + ' ' + recovered_emb_file
 
 print('l0')
 emb_freq, emb = util.load_wav_file(emb_file_name)
+print(emb)
+print(type(emb[0]))
 print('l1')
 cover_freq, cover = util.load_wav_file(cover_file_name)
+print(type(cover[0]))
 print('l2')
 # First let's dump it into a file for c++ code int_to_bin_conv.cpp
 # print(emb)
@@ -44,9 +47,9 @@ os.system(convert_emb_to_binary)
 emb = ''
 with open(emb_file_binary_path, 'r') as emb_binary_file:
     for line in emb_binary_file:
-        #line.strip()
         emb += line[:len(line)-1]
-print(emb)
+#print(emb)
+print(cover)
 stego = steg.hide(cover, emb)
 
 stego_file_decimal = open(stego_file_decimal_path, "w")

@@ -44,6 +44,7 @@ def hide(cover_audio, emb_audio, method=Method.lsb_coding):
        stego = lsb_code(emb_audio, cover_audio)
     return stego
 
+
 def lsb_code(binary_emb_message, cover_message):
     # Binary manipulation
     # The LSB of each array entry in the amplitude array of the cover signal will be switched to comply with the ith
@@ -55,6 +56,7 @@ def lsb_code(binary_emb_message, cover_message):
     emb_message_bits_length = len(binary_emb_message)
 
     lsb_idx = 0
+    print(cover_message)
     # Loop over all the bits in the binary_emb_message
     for k in range(emb_message_bits_length):
         if (float(k) / float(cover_message.shape[0])) > 1:
@@ -63,6 +65,7 @@ def lsb_code(binary_emb_message, cover_message):
                                            cover_message[k % cover_message.shape[0]],
                                            lsb_idx)
     return cover_message
+
 
 def hide_bit(bit, word, bit_to_be_replaced_idx):
     bit_to_be_replaced_value = mask_bit(bit_to_be_replaced_idx, word)
@@ -80,6 +83,7 @@ def mask_bit(idx, message):
     masker = message & (1 << idx)
     masker = masker >> idx
     return masker
+
 
 def recover(stego_data, emb_msg_len): # cover_data is a string list of binary numbers
     msg = ''

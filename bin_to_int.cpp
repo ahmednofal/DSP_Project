@@ -45,7 +45,7 @@ int main(int argc, char* argv[])
     getline(recovered_wav_file_binary, binary);
     do
     {
-        bitset<32> number(binary);
+        bitset<16> number(binary);
         decimal = int(number.to_ulong()); //to binary
         recovered_wav_file_decimal << decimal << endl;
         getline(recovered_wav_file_binary, binary);

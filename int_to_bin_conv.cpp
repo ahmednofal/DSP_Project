@@ -44,7 +44,7 @@ int main(int argc, char* argv[])
 //        cout << number << endl;
 
         conv_int = stoi(number);
-        binary = bitset<32>(conv_int).to_string(); //to binary
+        binary = bitset<16>(conv_int).to_string(); //to binary
         emb_wav_file_binary << binary << endl;
 
     } while(!emb_wav_file_decimal.eof());
