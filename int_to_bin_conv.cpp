@@ -3,16 +3,20 @@
 #include <fstream>
 #include <string>
 
-#define EMB_DECIMAL_FILE_NAME "emb_wav_file_decimal.txt"
-#define EMB_BINARY_FILE_NAME  "emb_wav_file_binary.txt"
+//#define EMB_DECIMAL_FILE_NAME "emb_wav_file_decimal.txt"
+//#define EMB_BINARY_FILE_NAME  "emb_wav_file_binary.txt"
 
 using namespace std;
 
-int main()
+int main(int argc, char* argv[])
 {
     // Read from file
+
     ifstream emb_wav_file_decimal;
     ofstream emb_wav_file_binary;
+    string EMB_DECIMAL_FILE_NAME = argv[1];
+    cout << EMB_DECIMAL_FILE_NAME << endl;
+    string EMB_BINARY_FILE_NAME = argv[2];
 
     string number;
     int conv_int;
@@ -32,9 +36,12 @@ int main()
         return(-1);
     }
 
+    cout << "Int to bin: Converting " << argv[0] << " to " << argv[1] << endl;
     do
     {
         getline(emb_wav_file_decimal, number);
+
+//        cout << number << endl;
 
         conv_int = stoi(number);
         binary = bitset<32>(conv_int).to_string(); //to binary

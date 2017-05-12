@@ -34,18 +34,17 @@ class Method(Enum):
     phase_coding = 1
 
 
-def hide(cover_audio_file, emb_audio_file, method=Method.lsb_coding):
-    binary_cover_message_rate, binary_cover_message = load_wav_file_in_binary(cover_audio_file)
+def hide(cover_audio, emb_audio, method=Method.lsb_coding):
+    #binary_cover_message_rate, binary_cover_message = load_wav_file_in_binary(cover_audio_file)
 
     # We have the covering audio file amps in binary format
     # We need to convert the embedded file into binary as well
-    binary_emb_message_rate, binary_emb_message = load_wav_file_in_binary(emb_audio_file)
+    #binary_emb_message_rate, binary_emb_message = load_wav_file_in_binary(emb_audio_file)
     if method == Method.lsb_coding:
-        binary_emb_message = to_binary(binary_emb_message)
-        lsb_code(binary_emb_message, binary_cover_message)
+       stego = lsb_code(emb_audio, cover_audio)
+    return stego
 
-
-def lsb_code(binary_emb_message, binary_cover_message):
+def lsb_code(binary_emb_message, cover_message):
     # Binary manipulation
     # The LSB of each array entry in the amplitude array of the cover signal will be switched to comply with the ith
     # bit in the embedded signal (the mask_lsb function)
@@ -53,19 +52,17 @@ def lsb_code(binary_emb_message, binary_cover_message):
     # For the library to be usable the first scheme is used with a warning raised for the user to enter a taller(in time
     # length) cover audio
 
-    lsb_chooser_array = len(binary_emb_message) / binary_cover_message.shape[0]
-
     emb_message_bits_length = len(binary_emb_message)
 
     lsb_idx = 0
     # Loop over all the bits in the binary_emb_message
     for k in range(emb_message_bits_length):
-        if (float(k) / float(binary_cover_message.shape[0])) > 1:
+        if (float(k) / float(cover_message.shape[0])) > 1:
             lsb_idx += 1
-        binary_cover_message[k] = hide_bit(binary_emb_message[k],
-                                           binary_cover_message[k % binary_cover_message.shape[0]],
+        cover_message[k] = hide_bit(binary_emb_message[k],
+                                           cover_message[k % cover_message.shape[0]],
                                            lsb_idx)
-
+    return cover_message
 
 def hide_bit(bit, word, bit_to_be_replaced_idx):
     bit_to_be_replaced_value = mask_bit(bit_to_be_replaced_idx, word)
@@ -84,17 +81,16 @@ def mask_bit(idx, message):
     masker = masker >> idx
     return masker
 
-
-def recover(cover_data, emb_msg_len): # cover_data is a string list of binary numbers
+def recover(stego_data, emb_msg_len): # cover_data is a string list of binary numbers
     msg = ''
-    cover_len = len(cover_data)
-    lsb_lvl = emb_msg_len // cover_len
-    data = np.array([list(x) for x in cover_data])
+    stego_len = len(stego_data)
+    lsb_lvl = emb_msg_len // stego_len
+    data = np.array([list(x) for x in stego_data])
 
     for i in range(lsb_lvl):
         msg = msg + ''.join(data[:,31 - i])
 
-    rem = emb_msg_len % (cover_len)
+    rem = emb_msg_len % (stego_len)
     msg = msg + ''.join(data[:rem ,31 - lsb_lvl])
 
     chunk = 32

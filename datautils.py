@@ -32,7 +32,7 @@ if not os.path.exists(save_figures_path):
 if not os.path.exists(WAV_Files_folder):
     os.makedirs(WAV_Files_folder)
 if not os.path.exists(reconstructed_wav_folder):
-    os.makedirs(reconstructedf_wav_folder)
+    os.makedirs(reconstructed_wav_folder)
 
 
 # number of samples for the signal
@@ -60,49 +60,13 @@ def write_wav_file(filename, rate, data):
     write(filename=filename, rate=rate, data=data)
 
 
-def array_to_binary(array_name):
-    for i in range(array_name.shape[0]):
-        array_name[i] = bin(int(array_name[i]))[2:].zfill(8)
-    return array_name
-
-
-def to_binary(decimal_array):
-
-    #decimal_array = [bin(((1 << d) - 1) & -5)[2:] for d in decimal_array]
-    #print(decimal_array)
-    one_binary_word = ''
-    for i in range(len(decimal_array)-1):
-        shifted = decimal_array[i]
-        one_binary_word += format(bin(decimal_array[i])[2:],32)
-    print(len(one_binary_word))
-    return one_binary_word
-
-
-        #bin(((1 << shifted) - 1) & -5)[2:0] bin(((1 << decimal_array[i+1]) - 1) & -5))[2:]
-    #one_binary_word = [int(d) for d in str(one_binary_word)[2:]]
-    #print(one_binary_word)
-
-
-
-def to_binary3(decimal_array):
-    one_bit_array = bitarray(bin(decimal_array))
-
-
-def load_wav_file_in_binary(file_name):
-    rate, data = load_wav_file(file_name)
-    binary_data = np.array(data)
-    # Converting to the binary format of the data
-    binary_data = array_to_binary(binary_data)
-    # for i in range(data.shape[0]):
-    #     binary_data[i] = bin(int(data[i]))[2:].zfill(8)
-    return rate, binary_data
-
 def hide_bit(target, bit, level): #hides <bit> in target number in bit number <level>
     if (int(bit) == 1):
         target = target | (bit << level)
     else:
         target = target & (~(1 << level))
     return target
+
 
 def get_hidden_bit(source, level): #recovers a hidden bit in source number in bit number <level>
     return  (source >> level) & 1 
