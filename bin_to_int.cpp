@@ -51,7 +51,7 @@ int main(int argc, char* argv[])
         bitset<16> number(binary);
 //        cout << number.to_string() << endl;
         decimal = int16_t(int(number.to_ulong()));
-        cout << decimal << endl;
+//        cout << decimal << endl;
         recovered_wav_file_decimal << decimal << endl;
         getline(recovered_wav_file_binary, binary);
 

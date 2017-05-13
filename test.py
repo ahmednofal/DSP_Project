@@ -87,6 +87,8 @@ with open(recovered_emb_file_decimal_path, "r") as recovered_emb_file_decimal:
     recovered_emb_file_decimal_content = recovered_emb_file_decimal.readlines()
 recovered_emb = np.array([x.strip() for x in recovered_emb_file_decimal_content])
 print("done")
-
+recovered_emb = np.asarray(recovered_emb, np.int16)
+# print(type(recovered_emb[0]))
+# print(recovered_emb[0])
 util.write_wav_file(recovered_emb_file_name, emb_freq, recovered_emb)
 print("done")
