@@ -15,7 +15,7 @@ int main(int argc, char* argv[])
     ifstream emb_wav_file_decimal;
     ofstream emb_wav_file_binary;
     string EMB_DECIMAL_FILE_NAME = argv[1];
-    cout << EMB_DECIMAL_FILE_NAME << endl;
+    //cout << EMB_DECIMAL_FILE_NAME << endl;
     string EMB_BINARY_FILE_NAME = argv[2];
 
     string number;
@@ -36,16 +36,22 @@ int main(int argc, char* argv[])
         return(-1);
     }
 
-    cout << "Int to bin: Converting " << argv[0] << " to " << argv[1] << endl;
+
+    cout << "Int to bin: Converting " << argv[1] << " to " << argv[1] << endl;
+
+    getline(emb_wav_file_decimal, number);
+
     do
     {
-        getline(emb_wav_file_decimal, number);
 
-//        cout << number << endl;
-
+        //cout << number << endl;
+        //if (number == "\n")
+        //cout << " I knew it" << endl;
         conv_int = stoi(number);
         binary = bitset<16>(conv_int).to_string(); //to binary
+        cout << binary << endl;
         emb_wav_file_binary << binary << endl;
+        getline(emb_wav_file_decimal, number);
 
     } while(!emb_wav_file_decimal.eof());
     emb_wav_file_decimal.close();

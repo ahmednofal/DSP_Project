@@ -97,21 +97,20 @@ def mask_bit(idx, message):
 def recover(stego_data, emb_msg_len): # cover_data is a string list of binary numbers
     chunk = 15
     msg = ''
-    print(stego_data)
     stego_len = len(stego_data)
     lsb_lvl = emb_msg_len // stego_len
     data = np.array([list(x) for x in stego_data])
 
     for i in range(lsb_lvl):
-        msg = msg + ''.join(data[:,chunk - i])
+        msg = msg + ''.join(data[:, chunk-i])
 
     rem = emb_msg_len % (stego_len)
-    msg = msg + ''.join(data[:rem ,chunk- lsb_lvl])
-
+    msg = msg + ''.join(data[:rem, chunk-lsb_lvl])
     chunk = 16
-    msg_split = [msg[i : i + chunk] for i in range(0, len(msg), chunk)]
-    f = open("emb_msg_rec.txt", 'w')
-    for i in msg_split:
-        f.write(i + '\n')
+    msg_split = [msg[i: i + chunk] for i in range(0, len(msg), chunk)]
+    # f = open("emb_msg_rec.txt", 'w')
+    # for i in msg_split:
+    #     f.write(i + '\n')
+
     return msg_split
 
