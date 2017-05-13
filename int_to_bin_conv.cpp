@@ -49,7 +49,7 @@ int main(int argc, char* argv[])
         //cout << " I knew it" << endl;
         conv_int = stoi(number);
         binary = bitset<16>(conv_int).to_string(); //to binary
-        cout << binary << endl;
+//        cout << binary << endl;
         emb_wav_file_binary << binary << endl;
         getline(emb_wav_file_decimal, number);
 

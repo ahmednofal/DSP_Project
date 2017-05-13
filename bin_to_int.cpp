@@ -43,7 +43,7 @@ int main(int argc, char* argv[])
     cout << "Bin to int: Converting " << argv[2] << " to " << argv[1] << endl;
 
     getline(recovered_wav_file_binary, binary);
-    cout << binary << endl;
+//    cout << binary << endl;
     do
     {
         //cout << " here \n" << endl;
