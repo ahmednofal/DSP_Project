@@ -134,6 +134,7 @@ util.write_wav_file(local_path + "stego.wav", cover_freq, stego_data)
 emb_freq, emb = util.load_wav_file(emb_file_name)
 
 # analysis fft on signals
+############# print(cover, stego) both have the same exact values somehow
 cover_freq, cover = util.load_wav_file(cover_file_name)
 cover_fft = np.fft.rfft(cover)
 emb_fft = np.fft.rfft(emb)
