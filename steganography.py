@@ -28,7 +28,6 @@ quantization_bit_value = 16
 # from the start
 # Another parameter that could be added would be the factor by which the amplitude will be amplified
 
-from tqdm import tqdm
 
 class Method(Enum):
     lsb_coding = 0
@@ -59,7 +58,6 @@ def lsb_code(binary_emb_message, cover_message):
     lsb_idx = 0
     # Loop over all the bits in the binary_emb_message
     # print(len(binary_emb_message))
-    print(binary_emb_message)
     # print(0%cover_message.shape[0])
     current_shape = cover_message.shape[0]
     for k in range(emb_message_bits_length):
